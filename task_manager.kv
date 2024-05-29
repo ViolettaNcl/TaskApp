@@ -1,0 +1,327 @@
+ScreenManager:
+    MainScreen:
+    AddTaskScreen:
+    AssignTaskScreen:
+    UpdateTaskScreen:
+    CompleteTaskScreen:
+    ExecutorTaskScreen: 
+
+<MainScreen>:
+    name: "main"
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            title: "Менеджер задач"
+            left_action_items: [["menu", lambda x: None]]
+            right_action_items: [["magnify", lambda x: None]]
+            elevation: 3
+        BoxLayout:
+            orientation: 'vertical'
+            padding: "50dp"
+            spacing: "20dp"
+            Widget:
+                size_hint_y: 0.6
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: "400dp"
+                spacing: "-15dp"
+                pos_hint: {"сenter_x": 0.45, "center_y": 0.6}
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: "90dp"
+                    spacing: "10dp"
+                    MDIcon:
+                        icon: "plus"
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1
+                    MDRaisedButton:
+                        text: "Добавить задачу"
+                        on_press: app.root.current = "add_task"
+                        size_hint_x: 1
+                
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: "90dp"
+                    spacing: "10dp"
+                    MDIcon:
+                        icon: "star"
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1
+                    MDRaisedButton:
+                        text: "Назначить задачу"
+                        on_press: app.root.current = "assign_task"
+                        size_hint_x: 1
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: "90dp"
+                    spacing: "10dp"
+                    MDIcon:
+                        icon: "update"
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1
+                    MDRaisedButton:
+                        text: "Обновить задачу"
+                        on_press: app.root.current = "update_task"
+                        size_hint_x: 1
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: "90dp"
+                    spacing: "10dp"
+                    MDIcon:
+                        icon: "account"
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1
+                    MDRaisedButton:
+                        text: "Задачи исполнителя"
+                        on_press: app.root.current = "executor_task"
+                        size_hint_x: 1
+                    
+
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: "90dp"
+                    spacing: "10dp"
+                    MDIcon:
+                        icon: "check"
+                        size_hint: None, None
+                        size: "48dp", "48dp"
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1
+                    MDRaisedButton:
+                        text: "Завершить задачу"
+                        on_press: app.root.current = "complete_task"
+                        size_hint_x: 1   
+
+<AddTaskScreen>:
+    name: "add_task"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "10dp"
+        Widget:
+            size_hint_y: None
+            height: "100dp"  # Пространство перед текстовыми полями для размещения их в центре
+        MDTextField:
+            id: client
+            hint_text: "Имя клиента"
+            icon_right: "account"
+            size_hint_y: None
+            height: "48dp"
+        MDTextField:
+            id: description
+            hint_text: "Описание задачи"
+            icon_right: "note"
+            size_hint_y: None
+            height: "48dp"
+        Widget:
+            size_hint_y: None
+            height: "50dp"  # Пространство после текстовых полей
+        Widget:
+            size_hint_y: None
+            height: "20dp"  # Пространство перед кнопками для сдвига вверх
+        MDRaisedButton:
+            text: "Добавить задачу"
+            icon: "check"
+            on_press: root.add_task()
+            size_hint_y: None
+            height: "48dp"
+        MDRaisedButton:
+            text: "Назад"
+            icon: "arrow-left"
+            on_press: root.go_back()
+            size_hint_y: None
+            height: "48dp"
+
+<AssignTaskScreen>:
+    name: "assign_task"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "10dp"
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: "250dp"
+            MDTextField:
+                id: task_id
+                hint_text: "ID задачи"
+                icon_right: "identifier"
+                size_hint_y: None
+                height: "48dp"
+            MDTextField:
+                id: manager
+                hint_text: "Имя руководителя"
+                icon_right: "account"
+                size_hint_y: None
+                height: "48dp"
+            MDTextField:
+                id: executor
+                hint_text: "Исполнитель"
+                icon_right: "account"
+                size_hint_y: None
+                height: "48dp"
+            MDTextField:
+                id: start_date
+                hint_text: "Дата начала (ГГГГ-ММ-ДД)"
+                icon_right: "calendar"
+                size_hint_y: None
+                height: "48dp"
+            MDTextField:
+                id: deadline
+                hint_text: "Дедлайн (ГГГГ-ММ-ДД)"
+                icon_right: "calendar"
+                size_hint_y: None
+                height: "48dp"
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: "100dp"
+            spacing: "10dp"
+            MDRaisedButton:
+                text: "Назначить задачу"
+                icon: "check"
+                on_press: root.assign_task()
+                size_hint_y: None
+                height: "48dp"
+            MDRaisedButton:
+                text: "Назад"
+                icon: "arrow-left"
+                on_press: root.go_back()
+                size_hint_y: None
+                height: "48dp"
+
+<UpdateTaskScreen>:
+    name: "update_task"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "10dp"
+        MDTextField:
+            id: task_id
+            hint_text: "ID задачи"
+            icon_right: "identifier"
+        MDTextField:
+            id: manager
+            hint_text: "Имя руководителя"
+            icon_right: "account"
+        MDTextField:
+            id: executor
+            hint_text: "Имя исполнителя"
+            icon_right: "account"
+        MDTextField:
+            id: start_date
+            hint_text: "Дата начала (ГГГГ-ММ-ДД)"
+            icon_right: "calendar"
+        MDTextField:
+            id: deadline
+            hint_text: "Дедлайн (ГГГГ-ММ-ДД)"
+            icon_right: "calendar"
+        MDRaisedButton:
+            text: "Обновить задачу"
+            icon: "update"
+            on_press: root.update_task()
+            size_hint_y: None
+            height: "48dp"
+        MDRaisedButton:
+            text: "Назад"
+            icon: "arrow-left"
+            on_press: root.go_back()
+            size_hint_y: None
+            height: "48dp"
+
+<CompleteTaskScreen>:
+    name: "complete_task"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "10dp"
+        Widget:
+            size_hint_y: None
+            height: "100dp"  # Пространство перед текстовым полем для размещения его в центре
+        MDTextField:
+            id: task_id
+            hint_text: "ID задачи"
+            icon_right: "identifier"
+            size_hint_y: None
+            height: "48dp"
+        Widget:
+            size_hint_y: None
+            height: "100dp"  # Пространство после текстового поля
+        Widget:
+            size_hint_y: None
+            height: "8dp"  # Пространство перед кнопками для сдвига вверх на 3 см
+        MDRaisedButton:
+            text: "Завершить задачу"
+            icon: "check"
+            on_press: root.complete_task()
+            size_hint_y: None
+            height: "48dp"
+        MDRaisedButton:
+            text: "Назад"
+            icon: "arrow-left"
+            on_press: root.go_back()
+            size_hint_y: None
+            height: "48dp" 
+
+<ExecutorTaskScreen>:
+    name: "executor_task"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: "20dp"
+        spacing: "10dp"
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: "100dp"
+            MDTextField:
+                id: executor
+                hint_text: "Имя исполнителя"
+                icon_right: "account"
+                size_hint_y: None
+                height: "48dp"
+            MDTextField:
+                id: task_id
+                hint_text: "ID задачи для завершения"
+                icon_right: "identifier"
+                size_hint_y: None
+                height: "48dp"
+        MDLabel:
+            id: task_list
+            text: ""
+            halign: "center"
+            size_hint_y: None
+            height: "100dp"
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: "100dp"
+            spacing: "10dp"
+            MDRaisedButton:
+                text: "Завершить задачу"
+                icon: "check"
+                on_press: root.complete_task()
+                size_hint_y: None
+                height: "48dp"
+            MDRaisedButton:
+                text: "Назад"
+                icon: "arrow-left"
+                on_press: root.go_back()
+                size_hint_y: None
+                height: "48dp"
